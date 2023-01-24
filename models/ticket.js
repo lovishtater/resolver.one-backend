@@ -25,11 +25,22 @@ const ticketSchema = new mongoose.Schema({
         type: String,
     },
     createdBy: {
-        type: String,
+        name: {
+            type: String,
+            required: true,
+        },
+        email: {
+            type: String,
+            required: true,
+        },
+        team: {
+            type: String,
+            required: true,
+        },
     },
     comments: {
         type: Array,
     }
-}, {timestamps: true});
+}, { timestamps: true });
 
 module.exports = mongoose.model("Ticket", ticketSchema);

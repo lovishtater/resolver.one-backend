@@ -16,16 +16,16 @@ const userSchema = new mongoose.Schema({
         unique: true,
         lowercase: true
     },
+    team : {
+        type: String,
+        default: 'none',
+        enum: ['none', 'tech', 'business', 'ops', 'sales', 'finance']
+    },
     encryptedPassword: {
         type: String,
         required: true
     },
     salt: String,
-    team : {
-        type: String,
-        default: 'none',
-        enum: ['none', 'tech', 'business', 'ops', 'sales', 'finance']
-    }
 }, {timestamps: true}); 
 
 userSchema.virtual('password')
