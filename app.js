@@ -5,7 +5,6 @@ const port = process.env.PORT || 3000;
 const { 
     SignUp, 
     SignIn,
-    dbtest
 } = require('./controllers/auth');
 
 const {
@@ -17,7 +16,7 @@ const {
 
 const Home = (req, res) => {
     res.writeHead(200, {'Content-Type': 'text/html'});
-    res.write('<h1>Welcome to Resolver.One</h1>');
+    res.write('<h1 style="text-align: center;">Welcome to the Resolver One Backend</h1>');
     res.end();
 }
 
@@ -46,7 +45,6 @@ mongoose.connect(process.env.MONGO_URI, {
 
 const server = http.createServer((req, res) => {
     let url = req.url;
-    
     if (url === '/') {
         Home(req, res);
     } else if (url === '/signup') {
