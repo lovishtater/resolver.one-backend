@@ -1,6 +1,6 @@
 require('dotenv').config();
 const http = require('http');
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8000;
 
 const { 
     SignUp, 
@@ -21,7 +21,7 @@ const Home = (req, res) => {
 }
 
 const NotFound = (req, res) => {
-    res.writeHead(404, {'Content-Type': 'text/html'});
+    res.writeHead(404, {'Content-Type': 'application/json'});
     res.write('<h1>404 Not Found</h1>');
     res.end();
 }
@@ -45,6 +45,7 @@ mongoose.connect(process.env.MONGO_URI, {
 
 const server = http.createServer((req, res) => {
     let url = req.url;
+    console.log(url);
     if (url === '/') {
         Home(req, res);
     } else if (url === '/signup') {

@@ -15,12 +15,22 @@ function getPostData(req) {
         }
     })
 }
+const headers = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Headers': '*',
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+    "Access-Control-Max-Age": 2592000, // 30 days
+}
 
 function throwError  (res , err) {
-    res.writeHead(400, {'Content-Type': 'application/json'});
+    res.writeHead(400, headers);
     res.end(JSON.stringify({ error: err }));
  }
+
+
 module.exports = {
     getPostData,
-    throwError
+    throwError,
+    headers
 }

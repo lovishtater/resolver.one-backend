@@ -1,32 +1,25 @@
 
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
-const { getPostData, throwError } = require('../utils/utils');
+const { getPostData, throwError, headers } = require('../utils/utils');
 
 exports.SignUp = async (req, res) => {
     const body = JSON.parse(await getPostData(req));
-    const { name, email, password } = body;
+    const { email  } = body;
+
     User.findOne({ email }).exec((err, user) => {
         if (user) {
             throwError(res, 'Email is taken');
         } else {
-            const newUser = new User({
-                name,
-                email,
-                password
-            });
-
+            const newUser = new User(body);
             newUser.save((err, user) => {
                 if (err) {
                     throwError(res, err);
                 } else {
-                    res.writeHead(200, { 'Content-Type': 'text/html' });
-                    res.end(JSON.stringify({
-                        user,
-                        message: 'User created successfully'
-                    }));
-                }
-            });
+                    res.writeHead(200, headers);
+                    res.write(JSON.stringify({ message: 'User signed up successfully' }));
+                    res.end();
+            }});
         }
     });
 };
@@ -43,14 +36,11 @@ exports.SignIn = async (req, res) => {
                 throwError(res, 'Email and password do not match');
             }
             const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
-            res.writeHead(200, { 'Content-Type': 'text/html' });
+            res.writeHead(200, headers);
             user.encryptPassword = undefined;
             user.salt = undefined;
-            res.end(JSON.stringify({
-                token,
-                user,
-                message: 'User signed in successfully'
-            }));
+            res.write(JSON.stringify({ token, user }));
+            res.end();
         }
         );
 };
