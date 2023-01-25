@@ -1,39 +1,29 @@
 const Tickets = require('../models/ticket');
-const { getPostData, throwError } = require('../utils/utils');
+const { getPostData, throwError, headers } = require('../utils/utils');
 
 exports.GetAllTickets = (req,res) => {
     Tickets.find().exec((err, tickets) => {
         if (err) {
             throwError(res, err);
         } else {
-            res.writeHead(200, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify(tickets));
+            res.writeHead(200, headers);
+            res.write(JSON.stringify({ tickets }));
+            res.end();
         }
     });
 }
 
 exports.createTicket = async (req, res) => {
     const body = JSON.parse(await getPostData(req));
-    const { title, description, priority, status, assignedTo, createdBy } = body;
-    const newTicket = new Tickets({
-        title,
-        description,
-        priority,
-        status,
-        assignedTo,
-        createdBy,
-        comments
-    });
+    const newTicket = new Tickets(body);
 
     newTicket.save((err, ticket) => {
         if (err) {
             throwError(res, err);
         } else {
-            res.writeHead(200, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify({
-                ticket,
-                message: 'Ticket created successfully'
-            }));
+            res.writeHead(200, headers);
+            res.write(JSON.stringify({ ticket, message: 'Ticket created' }));
+            res.end();
         }
     });
 }
@@ -54,11 +44,9 @@ exports.updateTicket = async (req, res) => {
         if (err) {
             throwError(res, err);
         } else {
-            res.writeHead(200, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify({
-                ticket,
-                message: 'Ticket updated successfully'
-            }));
+            res.writeHead(200, headers);
+            res.write(JSON.stringify({ ticket, message: 'Ticket updated' }));
+            res.end();
         }
     });
 }
@@ -68,11 +56,9 @@ exports.deleteTicket = (req, res) => {
         if (err) {
             throwError(res, err);
         } else {
-            res.writeHead(200, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify({
-                ticket,
-                message: 'Ticket deleted successfully'
-            }));
+            res.writeHead(200, headers);
+            res.write(JSON.stringify({ ticket, message: 'Ticket deleted' }));
+            res.end();
         }
     });
 }
@@ -88,13 +74,11 @@ exports.addComment = async (req, res) => {
         if (err) {
             throwError(res, err);
         } else {
-            res.writeHead(200, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify({
-                ticket,
-                message: 'Comment added successfully'
-            }));
+            res.writeHead(200, headers);
+            res.write(JSON.stringify({ ticket, message: 'Comment added' }));
+            res.end();
         }
-    });
+    }); 
 }
 
 

@@ -12,6 +12,7 @@ const {
     CreateTicket,
     UpdateTicket,
     DeleteTicket,
+    addComment
 } = require('./controllers/tickets');
 
 const Home = (req, res) => {
@@ -60,6 +61,8 @@ const server = http.createServer((req, res) => {
         UpdateTicket(req, res);
     } else if (url === '/delete-ticket') {
         DeleteTicket(req, res);
+    } else if (url === '/add-comment') {
+        addComment(req,res);
     } else {
         NotFound(req, res);
     }

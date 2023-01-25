@@ -25,7 +25,8 @@ const headers = {
 
 function throwError  (res , err) {
     res.writeHead(400, headers);
-    res.end(JSON.stringify({ error: err }));
+    res.write(JSON.stringify({ error: err.message }));
+    res.end();
  }
 
 
