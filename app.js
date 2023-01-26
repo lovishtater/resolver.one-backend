@@ -9,9 +9,9 @@ const {
 
 const {
     GetAllTickets,
-    CreateTicket,
-    UpdateTicket,
-    DeleteTicket,
+    createTicket,
+    updateTicket,
+    deleteTicket,
     addComment
 } = require('./controllers/tickets');
 
@@ -46,7 +46,6 @@ mongoose.connect(process.env.MONGO_URI, {
 
 const server = http.createServer((req, res) => {
     let url = req.url;
-    console.log(url);
     if (url === '/') {
         Home(req, res);
     } else if (url === '/signup') {
@@ -56,11 +55,11 @@ const server = http.createServer((req, res) => {
     } else if (url === '/tickets') {
         GetAllTickets(req, res);
     } else if (url === '/create-ticket') {
-        CreateTicket(req, res);
+        createTicket(req, res);
     } else if (url === '/update-ticket') {
-        UpdateTicket(req, res);
+        updateTicket(req, res);
     } else if (url === '/delete-ticket') {
-        DeleteTicket(req, res);
+        deleteTicket(req, res);
     } else if (url === '/add-comment') {
         addComment(req,res);
     } else {
