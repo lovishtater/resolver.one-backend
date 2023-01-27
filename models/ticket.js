@@ -22,7 +22,18 @@ const ticketSchema = new mongoose.Schema({
         enum: ['Low', 'Intermediate', 'High']
     },
     assignedTo: {
-        type: String,
+        _id: {
+            type: String,
+            required: true,
+        },
+        name: {
+            type: String,
+            required: true,
+        },
+        team: {
+            type: String,
+            required: true,
+        },
     },
     createdBy: {
         name: {
@@ -38,9 +49,22 @@ const ticketSchema = new mongoose.Schema({
             required: true,
         },
     },
-    comments: {
-        type: Array,
-    }
+    comments: [
+        {
+            _id:  {
+                type: String,
+                required: true,
+            },
+            name: {
+                type: String,
+                required: true,
+            },
+            comment: {
+                type: String,
+                required: true,
+            }
+        }
+    ]
 }, { timestamps: true });
 
 module.exports = mongoose.model("Ticket", ticketSchema);

@@ -44,3 +44,15 @@ exports.SignIn = async (req, res) => {
         }
         );
 };
+
+exports.getAllUsers = (req, res) => {
+    User.find().exec((err, users) => {
+        if (err) {
+            throwError(res, err);
+        } else {
+            res.writeHead(200, headers);
+            res.write(JSON.stringify({ users }));
+            res.end();
+        }
+    });
+}

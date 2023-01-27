@@ -5,6 +5,7 @@ const port = process.env.PORT || 8000;
 const { 
     SignUp, 
     SignIn,
+    getAllUsers
 } = require('./controllers/auth');
 
 const {
@@ -62,6 +63,8 @@ const server = http.createServer((req, res) => {
         deleteTicket(req, res);
     } else if (url === '/add-comment') {
         addComment(req,res);
+    } else if (url === '/get-all-users') {
+        getAllUsers(req, res);
     } else {
         NotFound(req, res);
     }

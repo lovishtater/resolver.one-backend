@@ -55,10 +55,9 @@ exports.deleteTicket = (req, res) => {
 
 exports.addComment = async (req, res) => {
     const body = JSON.parse(await getPostData(req));
-    const { comment } = body;
-    Tickets.findOneAndUpdate({ _id: req.params.id }, {
+    Tickets.findOneAndUpdate({ _id: body._id }, {
         $push: {
-            comments: comment
+            comments: body
         }
     }, { new: true }).exec((err, ticket) => {
         if (err) {
