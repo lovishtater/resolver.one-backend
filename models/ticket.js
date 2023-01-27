@@ -40,7 +40,7 @@ const ticketSchema = new mongoose.Schema({
             type: String,
             required: true,
         },
-        email: {
+        _id: {
             type: String,
             required: true,
         },
