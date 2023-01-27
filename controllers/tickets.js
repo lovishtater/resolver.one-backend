@@ -30,17 +30,7 @@ exports.createTicket = async (req, res) => {
 
 exports.updateTicket = async (req, res) => {
     const body = JSON.parse(await getPostData(req));
-    const { title, description, priority, status, type, assignedTo, createdBy } = body;
-    Tickets.findOneAndUpdate({ _id: req.params.id }, {
-        title,
-        description,
-        priority,
-        status,
-        type,
-        assignedTo,
-        createdBy,
-        comments
-    }, { new: true }).exec((err, ticket) => {
+    Tickets.findOneAndUpdate({ _id: body._id }, body, { new: true }).exec((err, ticket) => {
         if (err) {
             throwError(res, err);
         } else {
