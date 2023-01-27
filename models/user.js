@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema({
     team : {
         type: String,
         default: 'none',
-        enum: ['none', 'tech', 'business', 'ops', 'sales', 'finance']
+        enum: ['None', 'Tech', 'Business', 'Operations', 'Sales', 'Finance']
     },
     encryptedPassword: {
         type: String,
